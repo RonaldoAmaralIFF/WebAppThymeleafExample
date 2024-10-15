@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Tarefas</title>
+</head>
+<body>
+    
+    <h1 th:utext="#{home.welcome}">Bem Vindo ao Sistema de Gerenciamento de Tarefas</h1>
+    
+    <h2>Lista de Tarefas</h2>
+    
+    <p>Número de tarefas: <span th:text="${#lists.size(tasks)}">0</span></p>
+    
+    <a href="/tasks/new">Adicionar Nova Tarefa</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Completa</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="task : ${tasks}">
+                <td th:text="${task.id}">1</td>
+                <td th:text="${task.name}">Nome da Tarefa</td>
+                <td th:text="${task.description}">Descrição da Tarefa</td>
+                <td th:text="${task.completed}">false</td>
+                <td>
+                    <a th:href="@{'/tasks/edit/' + ${task.id}}">Editar</a>
+                    <a th:href="@{'/tasks/delete/' + ${task.id}}">Excluir</a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(tasks)}">
+                <td colspan="5">Nenhuma tarefa encontrada.</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <footer>
+	    <small>Sistema de Tarefas v0.1 - <span th:text="${#locale}">pt_BR</span> - <span th:text="${#dates.format(new java.util.Date(), 'dd/MM/yyyy HH:mm:ss')}">Data e Hora</span></small>  
+	</footer>
+</body>
+</html>
