@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nova Tarefa</title>
+    <style>
+        .error {
+            border-color: red;
+        }
+        .error-message {
+            color: red;
+            font-size: small;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nova Tarefa</h1>
+    <form th:action="@{/tasks}" th:object="${task}" method="post">
+ 		
+      
+        <div>
+            <label for="name">Nome:</label>
+            <input type="text" id="name" th:field="*{name}" 
+                   th:errorclass="error" />
+             <p th:if="${#fields.hasErrors('*{name}')}" 
+               th:errors="*{name}" class="error-message">Nome inválido</p>
+        </div>
+        <div>
+            <label for="description">Descrição:</label>
+            <textarea id="description" th:field="*{description}" 
+                      th:errorclass="error"></textarea>
+            <p th:if="${#fields.hasErrors('*{description}')}" 
+               th:errors="*{description}" class="error-message">Descrição inválida</p>
+        </div>
+        <div>
+            <label for="completed">Completa:</label>
+            <input type="checkbox" id="completed" th:field="*{completed}" />
+        </div>
+        <button type="submit">Salvar</button>
+    </form>
+    <a href="/tasks">Voltar</a>
+</body>
+</html>
